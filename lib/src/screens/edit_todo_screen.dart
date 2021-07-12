@@ -48,6 +48,15 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     _imageTodoController.text = widget.imageTodo;
     _timeTodo.text = widget.createAt.toDate().toString();
   }
+   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _titleController.dispose();
+    _subTitleController.dispose();
+    _imageTodoController.dispose();
+    _timeTodo.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

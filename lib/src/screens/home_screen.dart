@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_5/src/widget/todo_cart.dart';
 import 'package:flutter_application_5/src/screens/edit_todo_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 import 'create_todo_screen.dart';
 
 class Home extends StatefulWidget {

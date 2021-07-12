@@ -30,6 +30,12 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
     super.initState();
     _selectedDateController.text = _dateFormat.format(this.selectedDate);
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _selectedDateController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
