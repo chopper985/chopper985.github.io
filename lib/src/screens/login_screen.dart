@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_5/src/screens/home_screen.dart';
 import 'package:flutter_application_5/src/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application_5/utils/authenticaction.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginState createState() => _LoginState(); 
 }
 
 class _LoginState extends State<Login> {
@@ -45,6 +44,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Login',
           style: TextStyle(fontSize: 20, color: Colors.black),
@@ -224,18 +224,12 @@ class _LoginState extends State<Login> {
                         decoration: BoxDecoration(
                           border: Border.all(width: 2, color: Colors.orange),
                           borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                          color: Colors.white,
+                          color: Colors.white, 
                         ),
                         child: TextButton(
-                            onPressed: () async {
-                              User? user =
-                                  await Authentication.signInWithGoogle(
-                                      context: context);
-                              if (user != null) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => Home()));
-                              }
-                            },
+                            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => Home()),(route)=> false),
                             child: Row(
                               children: [
                                 Expanded(
