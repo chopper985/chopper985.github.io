@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_5/src/screens/login_screen.dart';
 import 'package:flutter_application_5/src/widget/todo_cart.dart';
 import 'package:flutter_application_5/src/screens/edit_todo_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,11 +35,11 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           new IconButton(
               onPressed: () => {
-                    // Navigator.of(context).push(
-                    //     MaterialPageRoute(builder: (context) => History())),
+                    Navigator.of(context).push(
+                         MaterialPageRoute(builder: (context) => Login())),
                   },
               icon: Icon(
-                Icons.calendar_today,
+                Icons.door_back_outlined,
                 color: Colors.black,
               ))
         ],

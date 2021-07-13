@@ -35,7 +35,7 @@ dependencies:
   permission_handler: ^8.1.2
   intl: ^0.17.0
   firebase_auth: ^2.0.0
-
+  google_sign_in: ^5.0.0
   
 dev_dependencies:
   flutter_test:
@@ -65,6 +65,8 @@ flutter:
     - images/circle.gif
     - images/profile.png
     - images/date_icon.png
+    - images/google_logo.png
+    - images/facebook_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

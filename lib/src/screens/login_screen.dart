@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_5/src/screens/home_screen.dart';
 import 'package:flutter_application_5/src/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_5/utils/authenticaction.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -92,7 +93,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(8, 100, 8, 0),
+                    padding: EdgeInsets.fromLTRB(8, 40, 8, 0),
                     child: TextFormField(
                       controller: _emailController,
                       onChanged: (val) {
@@ -173,9 +174,9 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                      padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
                       child: Container(
-                        width: 150,
+                        width: 100,
                         height: 50,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -205,7 +206,9 @@ class _LoginState extends State<Login> {
                             children: <TextSpan>[
                           TextSpan(
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Register())),
+                                ..onTap = () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => Register())),
                               text: ' Sign up a new account!',
                               style: TextStyle(
                                   color: Colors.blueAccent,
@@ -213,6 +216,74 @@ class _LoginState extends State<Login> {
                                   fontStyle: FontStyle.italic))
                         ])),
                   ),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                      child: Container(
+                        width: 250,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.orange),
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                            onPressed: () async {
+                              User? user =
+                                  await Authentication.signInWithGoogle(
+                                      context: context);
+                              if (user != null) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Home()));
+                              }
+                            },
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child:
+                                        Image.asset('images/google_logo.png')),
+                                Expanded(
+                                  flex: 4,
+                                  child: Text(
+                                    'Sign in with Google',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )),
+                  Padding(
+                      padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+                      child: Container(
+                        width: 250,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.orange),
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                          color: Colors.white,
+                        ),
+                        child: TextButton(
+                            onPressed: () => print('TTT'),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: Image.asset(
+                                        'images/facebook_icon.png')),
+                                Expanded(
+                                  flex: 4,
+                                  child: Text(
+                                    'Sign in with Facebook',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ))
                 ]),
           ),
         ),
