@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_5/src/screens/forgotpass_todo_screen.dart';
 import 'package:flutter_application_5/src/screens/home_screen.dart';
 import 'package:flutter_application_5/src/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +9,7 @@ class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState(); 
+  _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
@@ -18,6 +19,43 @@ class _LoginState extends State<Login> {
   TextEditingController _retypePswController = TextEditingController();
   String? email;
   String? password;
+  // static final FacebookLogin facebookSignIn = new FacebookLogin();
+
+  String _message = 'Log in/out by pressing the buttons below.';
+
+  // Future<Null> _loginFB() async {
+  //   final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+
+  //   switch (result.status) {
+  //     case FacebookLoginStatus.loggedIn:
+  //       Navigator.of(context).pop();
+  //       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
+  //       final FacebookAccessToken accessToken = result.accessToken;
+  //       _showMessage('''
+  //        Logged in!
+
+  //        Token: ${accessToken.token}
+  //        User id: ${accessToken.userId}
+  //        Expires: ${accessToken.expires}
+  //        Permissions: ${accessToken.permissions}
+  //        Declined permissions: ${accessToken.declinedPermissions}
+  //        ''');
+  //       break;
+  //     case FacebookLoginStatus.cancelledByUser:
+  //       _showMessage('Login cancelled by the user.');
+  //       break;
+  //     case FacebookLoginStatus.error:
+  //       _showMessage('Something went wrong with the login process.\n'
+  //           'Here\'s the error Facebook gave us: ${result.errorMessage}');
+  //       break;
+  //   }
+  // }
+
+  void _showMessage(String message) {
+    setState(() {
+      _message = message;
+    });
+  }
 
   tapLoginButton() async {
     if (_formkey.currentState!.validate()) {
@@ -163,12 +201,17 @@ class _LoginState extends State<Login> {
                     alignment: AlignmentDirectional.centerEnd,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(16, 5, 16, 0),
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          color: Colors.blueAccent,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 15.0,
+                      child: GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPassword())),
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                     ),
@@ -224,12 +267,14 @@ class _LoginState extends State<Login> {
                         decoration: BoxDecoration(
                           border: Border.all(width: 2, color: Colors.orange),
                           borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                          color: Colors.white, 
+                          color: Colors.white,
                         ),
                         child: TextButton(
-                            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => Home()),(route)=> false),
+                            onPressed: () => Navigator.of(context)
+                                .pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                    (route) => false),
                             child: Row(
                               children: [
                                 Expanded(
@@ -259,7 +304,7 @@ class _LoginState extends State<Login> {
                           color: Colors.white,
                         ),
                         child: TextButton(
-                            onPressed: () => print('TTT'),
+                            onPressed: () => print(''),
                             child: Row(
                               children: [
                                 Expanded(

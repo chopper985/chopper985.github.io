@@ -35,7 +35,6 @@ class _RegisterState extends State<Register> {
       Navigator.pop(context);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => Home()));
-      print('lambiengcode' + user.user!.uid.toString());
     }
   }
 

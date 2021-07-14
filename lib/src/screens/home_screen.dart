@@ -14,10 +14,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // final FacebookLogin facebookSignIn = new FacebookLogin();
+  String _message = 'Log in/out by pressing the buttons below.';
+  final _auth = FirebaseAuth.instance.currentUser;
+
+  void _showMessage(String message) {
+    setState(() {
+      _message = message;
+    });
+  }
+
   Future<Login> _signOut() async {
-    await FirebaseAuth.instance.signOut();
+    // final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    if (_auth != null) {
+      await FirebaseAuth.instance.signOut();
+    }
+    // if (result.status == FacebookLoginStatus.loggedIn) {
+    //   await facebookSignIn.logOut();
+    //   _showMessage('Logged out.');
+    // }
     // Navigator.of(context).pushAndRemoveUntil(, (route) => false)
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login(),), (route) => false);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => Login(),
+        ),
+        (route) => false);
     return Login();
   }
 
