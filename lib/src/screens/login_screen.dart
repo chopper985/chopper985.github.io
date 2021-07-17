@@ -4,6 +4,8 @@ import 'package:flutter_application_5/src/screens/forgotpass_todo_screen.dart';
 import 'package:flutter_application_5/src/screens/home_screen.dart';
 import 'package:flutter_application_5/src/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -19,41 +21,11 @@ class _LoginState extends State<Login> {
   TextEditingController _retypePswController = TextEditingController();
   String? email;
   String? password;
-  // static final FacebookLogin facebookSignIn = new FacebookLogin();
-
-  String _message = 'Log in/out by pressing the buttons below.';
-
-  // Future<Null> _loginFB() async {
-  //   final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-
-  //   switch (result.status) {
-  //     case FacebookLoginStatus.loggedIn:
-  //       Navigator.of(context).pop();
-  //       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
-  //       final FacebookAccessToken accessToken = result.accessToken;
-  //       _showMessage('''
-  //        Logged in!
-
-  //        Token: ${accessToken.token}
-  //        User id: ${accessToken.userId}
-  //        Expires: ${accessToken.expires}
-  //        Permissions: ${accessToken.permissions}
-  //        Declined permissions: ${accessToken.declinedPermissions}
-  //        ''');
-  //       break;
-  //     case FacebookLoginStatus.cancelledByUser:
-  //       _showMessage('Login cancelled by the user.');
-  //       break;
-  //     case FacebookLoginStatus.error:
-  //       _showMessage('Something went wrong with the login process.\n'
-  //           'Here\'s the error Facebook gave us: ${result.errorMessage}');
-  //       break;
-  //   }
-  // }
+  final _auth = FirebaseAuth.instance;
+  final _facebooklogin = FacebookLogin();
 
   void _showMessage(String message) {
     setState(() {
-      _message = message;
     });
   }
 
@@ -270,11 +242,7 @@ class _LoginState extends State<Login> {
                           color: Colors.white,
                         ),
                         child: TextButton(
-                            onPressed: () => Navigator.of(context)
-                                .pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()),
-                                    (route) => false),
+                            onPressed: () => print(''),
                             child: Row(
                               children: [
                                 Expanded(

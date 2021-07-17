@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_5/repository/user_repository.dart';
 import 'package:flutter_application_5/src/screens/login_screen.dart';
 import 'package:flutter_application_5/src/widget/todo_cart.dart';
 import 'package:flutter_application_5/src/screens/edit_todo_screen.dart';
@@ -14,32 +17,39 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // final FacebookLogin facebookSignIn = new FacebookLogin();
   String _message = 'Log in/out by pressing the buttons below.';
   final _auth = FirebaseAuth.instance.currentUser;
-
-  void _showMessage(String message) {
-    setState(() {
-      _message = message;
-    });
+  Future<String?> getFCMToken() async {
+    return await FirebaseMessaging.instance.getToken();
   }
 
+  printToken() async {
+    String? token = await getFCMToken();
+    await UseRepository().addTokenToUser(token!);
+    }
+
+  handle() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {});
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
+  }
+
+  
   Future<Login> _signOut() async {
     // final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-    if (_auth != null) {
-      await FirebaseAuth.instance.signOut();
-    }
-    // if (result.status == FacebookLoginStatus.loggedIn) {
-    //   await facebookSignIn.logOut();
-    //   _showMessage('Logged out.');
-    // }
-    // Navigator.of(context).pushAndRemoveUntil(, (route) => false)
+    await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (context) => Login(),
         ),
         (route) => false);
     return Login();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    printToken();
+    handle();
   }
 
   @override
@@ -56,6 +66,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.pinkAccent,
       ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Tokyo revenger',
           style: TextStyle(

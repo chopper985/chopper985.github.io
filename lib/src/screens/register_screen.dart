@@ -32,6 +32,7 @@ class _RegisterState extends State<Register> {
       final _auth = FirebaseAuth.instance;
       UserCredential user = await _auth.createUserWithEmailAndPassword(
           email: email!, password: password!);
+
       Navigator.pop(context);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => Home()));
@@ -247,7 +248,12 @@ class _RegisterState extends State<Register> {
                               color: Colors.orange,
                             ),
                             child: TextButton(
-                                onPressed: () => tapRegisterButton(),
+                                onPressed: () => {
+                                      if (_formkey.currentState!.validate())
+                                        {
+                                          tapRegisterButton(),
+                                        }
+                                    },
                                 child: Center(
                                   child: Text(
                                     'Sign up',

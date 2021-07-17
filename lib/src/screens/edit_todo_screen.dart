@@ -13,13 +13,14 @@ class EditTodoScreen extends StatefulWidget {
   final String subTitle;
   final String imageTodo;
   final Timestamp createAt;
-  const EditTodoScreen({
-    Key? key,
-    required this.title,
-    required this.subTitle,
-    required this.index,
-    required this.imageTodo,required this.createAt
-  }) : super(key: key);
+  const EditTodoScreen(
+      {Key? key,
+      required this.title,
+      required this.subTitle,
+      required this.index,
+      required this.imageTodo,
+      required this.createAt})
+      : super(key: key);
 
   @override
   _EditTodoScreenState createState() => _EditTodoScreenState();
@@ -48,7 +49,8 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     _imageTodoController.text = widget.imageTodo;
     _timeTodo.text = widget.createAt.toDate().toString();
   }
-   @override
+
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -195,7 +197,8 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                                       selectedDate.day,
                                       selectedTime!.hour,
                                       selectedTime.minute);
-                                      _timeTodo.text = formatDate.format(this.selectedDate);
+                                  _timeTodo.text =
+                                      formatDate.format(this.selectedDate);
                                 });
                               },
                             ),
@@ -209,6 +212,16 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                     // ignore: deprecated_member_use
                     child: RaisedButton(
                       onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) => Center(
+                              child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.blueAccent),
+                          )),
+                          barrierColor: Colors.grey.shade100,
+                          barrierDismissible: false,
+                        );
                         await FirebaseFirestore.instance
                             .runTransaction((transaction) async {
                           transaction.update(widget.index, {
@@ -219,6 +232,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                             "image": _imageTodoController.text,
                           });
                         });
+                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
                       color: Colors.lightBlue,
